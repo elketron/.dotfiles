@@ -10,6 +10,6 @@ class arduino (object):
     @pynvim.command("Compile",nargs='*', range='')
     def compile(self,args,range):
         getDir = os.getcwd().split('/')[-1]
-        comp = subprocess.getoutput(f'arduino-cli compile --fqbn arduino:avr:nano {getDir}')
+        comp = subprocess.getoutput(f'arduino-cli compile --fqbn arduino:avr:nano:cpu=atmega328Bold {getDir}')
         self.nvim.command(f'echo "{comp}"')
 
