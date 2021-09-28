@@ -24,9 +24,17 @@ lsp.html.setup{
 	on_attach = on_attach,
 	capabilities = capabilities,
 }
-require'lspconfig'.tsserver.setup{}
-require'lspconfig'.angularls.setup{}
-require'lspconfig'.cssls.setup { capabilities = capabilities }
+lsp.tsserver.setup{}
+lsp.angularls.setup{}
+lsp.cssls.setup { capabilities = capabilities }
+lsp.arduino_language_server.setup({
+  cmd = {
+  "arduino-language-server", 
+  "-cli-config", "~/.arduino15/arduino-cli.yaml" , 
+  "-fqbn", 'arduino:avr:nano'
+  },
+  capabilities = capabilities
+})
 --lsp.vuels.setup{}
 --lsp.nlua.setup{}
 -- require("nlua.lsp.nvim").setup(require("lspconfig"), {
@@ -35,7 +43,6 @@ require'lspconfig'.cssls.setup { capabilities = capabilities }
 --     "Color", "c", "Group", "g", "s",
 --   }
 -- })
-
 
 -- omnisharp
 
