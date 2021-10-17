@@ -13,9 +13,10 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 -- lsp config
 
 lsp.pyright.setup{
-	on_attach = on_attach,
-	capabilities = capabilities,
-}
+  on_attach = on_attach,
+  capabilities = capabilities,
+ }
+--lsp.pylsp.setup{}
 lsp.clangd.setup{
 	on_attach = on_attach,
 	capabilities = capabilities,
@@ -35,6 +36,18 @@ lsp.arduino_language_server.setup({
   },
   capabilities = capabilities
 })
+-- lsp.efm.setup{
+--   init_options = {documentFormatting = true},
+--   settings = {
+--     rootMarkers = {".git/"},
+--     languages = {
+--       lua = {formatCommand = "lua-format -i", formatStdin = true},
+--       python = {completion = true, codeAction = true}
+--     }
+--   },
+--   filetypes = { 'python', 'lua'}
+--}
+
 --lsp.vuels.setup{}
 --lsp.nlua.setup{}
 -- require("nlua.lsp.nvim").setup(require("lspconfig"), {

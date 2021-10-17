@@ -3,7 +3,8 @@ export EDITOR=/usr/bin/nvim
 export BROWSER=/usr/bin/qutebrowser
 export TERINAL=/usr/bin/kitty
 export VISUAL=/usr/bin/nvim
-export PATH=$PATH:$HOME/bin/
+export PATH="$PATH:$HOME/bin:$HOME/.local/bin"
+export npm_config_prefix="$HOME/.local"
 
 var=1
 

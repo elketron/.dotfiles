@@ -401,7 +401,7 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- Autorun programs
 autorun = true
 autorunApps = {
-    "xrandr --output DP-2 --mode 2560x1440 --pos 2560x0 --rotate right --output HDMI-1 --mode 2560x1080 --pos 0x740 --rotate normal",
+    "xrandr --output DP-2 --mode 2560x1440 --pos 2560x0 --rotate left --output HDMI-1 --mode 2560x1080 --pos 0x740 --rotate normal",
     "picom",
     "nitrogen --restore",
     "Blueman-manager",
