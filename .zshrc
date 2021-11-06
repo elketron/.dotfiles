@@ -115,7 +115,7 @@ alias feh="feh -d --start-at"
 alias mpv="mpv"
 alias mupdf="mupdf"
 alias vim="nvim"
-alias upd='paru -Syu --sudoloop; xmonad --recompile'
+alias upd='paru -Syu --sudoloop --overwrite "/usr/lib/node_modules/npm/node_modules/*"'
 
 alias :q="exit"
 

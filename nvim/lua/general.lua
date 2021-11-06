@@ -21,7 +21,6 @@ vim.o.incsearch = true
 vim.o.cmdheight=2
 vim.o.updatetime=300
 --vim.o.shortmess+=c
-
 -- ultisnips
 vim.g["UltiSnipsJumpForwardTrigger"] = "<A-n>"
 vim.g["UltiSnipsJumpBackwardTrigger"] = "<A-e>"

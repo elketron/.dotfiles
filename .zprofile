@@ -19,7 +19,8 @@ if [ $var -eq 0 ]; then
 
     export LIBSEAT_BACKEND=logind
 
-    exec dbus-run-session sway -s ./startup.sh $@
+    dwl -s ./startup.sh <&-
+    #exec dbus-run-session sway -s ./startup.sh $@
     
 else 
     if [ -z $DISPLAY ] && [ $XDG_VTNR -eq 1 ]; then

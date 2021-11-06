@@ -20,9 +20,12 @@ return require('packer').startup(function()
 	use 'scrooloose/syntastic'
 	use 'sheerun/vim-polyglot'
 	-- themes
-	use 'ghifarit53/tokyonight-vim'
+	--use 'ghifarit53/tokyonight-vim'
+	use 'srcery-colors/srcery-vim'
+	use 'ayu-theme/ayu-vim'
 	use 'vim-airline/vim-airline'
 	use 'ryanoasis/vim-devicons'
+
 	-- windowing
 	use 'nvim-lua/popup.nvim'
 	use 'nvim-lua/plenary.nvim'

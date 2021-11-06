@@ -4,8 +4,6 @@ file_with_size=$(du /etc/hosts)
 
 file_size=($(echo $file_with_size | tr " " "\n"))
 
-echo $file_size
-
 if [ $file_size -le 1000 ]; then
     cat /home/odmar/hosts > /etc/hosts
 fi
