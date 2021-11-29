@@ -8,10 +8,15 @@ utils.map('n', ',p', '"+p')
 utils.map('n', ',bn', ':bNext<cr>')
 utils.map('n', ',bp', ':bPrevious<cr>')
 utils.map('n', ',tt', ':term<cr>')
+
 utils.map('n', ',eq', ':lua require("nabla").action()<cr>')
 
+utils.map('n', ',z', "<cmd>lua require'centerpad'.toggle{ leftpad = 30, rightpad = 30 }<cr>", { silent = true, noremap = true })
+utils.map('n', ',co', ":w! | !comp <c-r>%<CR><CR>")
+utils.map('n', ',op', ":!opout <c-r>%<CR><CR>")
+
 utils.map('n', ',cm', ':Com ')
-utils.map('n', 'cu', ':Unc ')
+utils.map('n', ',cu', ':Unc ')
 --utils.map('n', 'gt', ':tabn<CR>')
 --utils.map('n', 'gT', ':tabp<CR>')
 --utils.map('n', 'gN', 'tabnew<CR>')

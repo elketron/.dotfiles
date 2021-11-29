@@ -12,3 +12,4 @@ $HOME/.dotfiles/.xserverrc $HOME
 $HOME/.dotfiles/.Xresources $HOME
 $HOME/.dotfiles/.zshrc $HOME
 $HOME/.dotfiles/bin $HOME
+$HOME/.dotfiles/ranger $HOME/.config/ranger

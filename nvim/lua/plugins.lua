@@ -13,6 +13,8 @@ return require('packer').startup(function()
 		'nvim-treesitter/nvim-treesitter',
 		run = 'TSUpdate'
 	}
+	use { 'smithbm2316/centerpad.nvim' }
+	use 'nvim-treesitter/playground'
 	-- snippets
 	use 'sirver/ultisnips'
 	--use 'L3MON4D3/LuaSnip'

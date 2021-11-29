@@ -9,17 +9,17 @@ export npm_config_prefix="$HOME/.local"
 var=1
 
 if [ $var -eq 0 ]; then
-    export QT_QPA_PLATFORM=wayland obs
     export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
 
     export XDG_CURRENT_DESKTOP=sway
+    export QT_WAYLAND_FORCE_DPI=physical
     export XDG_SESSION_TYPE=wayland
     export XDG_CONFIG_HOME=~/.config
     export SDL_VIDEODRIVER=x11
 
     export LIBSEAT_BACKEND=logind
 
-    dwl -s ./startup.sh <&-
+    dwl
     #exec dbus-run-session sway -s ./startup.sh $@
     
 else 

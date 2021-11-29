@@ -76,7 +76,7 @@ ZSH_THEME="gallois"
 plugins=(git fzf dotnet)
 
 source $ZSH/oh-my-zsh.sh
-
+source ~/.oh-my-zsh/custom/completion
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"

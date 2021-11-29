@@ -960,6 +960,7 @@ createpointer(struct wlr_input_device *device)
 	 * opportunity to do libinput configuration on the device to set
 	 * acceleration, etc. */
 	wlr_cursor_attach_input_device(cursor, device);
+	wlr_cursor_set_image(cursor, NULL, 0, 0, 0, 0, 0, 0);
 }
 
 void
@@ -1446,11 +1447,11 @@ moveresize(const Arg *arg)
 	case CurResize:
 		/* Doesn't work for X11 output - the next absolute motion event
 		 * returns the cursor to where it started */
-		wlr_cursor_warp_closest(cursor, NULL,
-				grabc->geom.x + grabc->geom.width,
-				grabc->geom.y + grabc->geom.height);
-		wlr_xcursor_manager_set_cursor_image(cursor_mgr,
-				"bottom_right_corner", cursor);
+// 		wlr_cursor_warp_closest(cursor, NULL,
+// 				grabc->geom.x + grabc->geom.width,
+// 				grabc->geom.y + grabc->geom.height);
+// 		wlr_xcursor_manager_set_cursor_image(cursor_mgr,
+// 				"bottom_right_corner", cursor);
 		break;
 	}
 }
@@ -1785,6 +1786,7 @@ rendermon(struct wl_listener *listener, void *data)
 	} while (!wlr_output_commit(m->wlr_output));
 }
 
+// resize for window
 void
 resize(Client *c, int x, int y, int w, int h, int interact)
 {
@@ -2075,7 +2077,7 @@ setup(void)
 	 * Xcursor themes to source cursor images from and makes sure that cursor
 	 * images are available at all scale factors on the screen (necessary for
 	 * HiDPI support). Scaled cursors will be loaded with each output. */
-	cursor_mgr = wlr_xcursor_manager_create(NULL, 24);
+	cursor_mgr = wlr_xcursor_manager_create(NULL, 1);
 
 	/*
 	 * wlr_cursor *only* displays an image on screen. It does not move around
@@ -2132,7 +2134,7 @@ setup(void)
 		 * Create the XWayland cursor manager at scale 1, setting its default
 		 * pointer to match the rest of dwl.
 		 */
-		xcursor_mgr = wlr_xcursor_manager_create(NULL, 24);
+		xcursor_mgr = wlr_xcursor_manager_create(NULL, 1);
 		wlr_xcursor_manager_load(xcursor_mgr, 1);
 		if ((xcursor = wlr_xcursor_manager_get_xcursor(xcursor_mgr, "left_ptr", 1)))
 			wlr_xwayland_set_cursor(xwayland,
