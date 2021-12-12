@@ -119,8 +119,8 @@ alias upd='paru -Syu --sudoloop --overwrite "/usr/lib/node_modules/npm/node_modu
 
 alias :q="exit"
 
-alias ydlm="youtube-dl -x --audio-format 'mp3'"
-alias ydlv="youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'"
+alias ydlm="yt-dlp -x --audio-format 'mp3'"
+alias ydlv="yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'"
 
 # conversion functions for pandoc
 doc2md (){
@@ -140,6 +140,9 @@ mk (){
    mkdir $1 && cd $1
 }
 
+ydlp (){
+   yt-dlp $1 -o 'Videos/%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s'
+}
 
 # exports
-export MSBuildSDKsPath=$( echo /usr/share/dotnet/sdk/5.*/Sdks );
+export MSBuildSDKsPath=/usr/share/dotnet/sdk/$(dotnet --version)/Sdks

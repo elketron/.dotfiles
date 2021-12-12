@@ -1,6 +1,8 @@
 #!/bin/sh
 # General handler for compiling files
 
+export DOT=/bin/dot
+
 file=$(readlink -f "$1")
 base=$(echo "$file" | sed 's/\..*//')
 
@@ -15,8 +17,9 @@ handlebang() {
 }
 
 case "$1" in
-    *.md) pandoc --filter pandoc-crossref "$file" -o "$base".pdf;;
+    *.md) pandoc --filter pandoc-crossref "$file" -o "$base".pdf --toc --filter pandoc-plantuml;;
     *.py) python "$file" ;;
     *.perl) perl "$file" ;;
+    *.ts) tsc "$file" ;;
     *) handlebang ;;
 esac

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-path_to_journal=~/Documents
+path_to_journal=$HOME/Documents
 file_name=journal.md
 Date=$(date +%y-%b-%a)
 temp_file=$(date +%y_%b_%a).md

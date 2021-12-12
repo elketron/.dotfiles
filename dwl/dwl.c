@@ -1,7 +1,6 @@
 /*
  * See LICENSE file for copyright and license details.
  */
-
 #define _POSIX_C_SOURCE 200809L
 #include <getopt.h>
 #include <linux/input-event-codes.h>
@@ -30,6 +29,7 @@
 #include <wlr/types/wlr_output_layout.h>
 #include <wlr/types/wlr_output_management_v1.h>
 #include <wlr/types/wlr_pointer.h>
+#include <wlr/types/wlr_presentation_time.h>
 #include <wlr/types/wlr_primary_selection.h>
 #include <wlr/types/wlr_primary_selection_v1.h>
 #include <wlr/types/wlr_screencopy_v1.h>
@@ -318,14 +318,11 @@ static struct wl_list independents;
 static struct wlr_idle *idle;
 static struct wlr_layer_shell_v1 *layer_shell;
 static struct wlr_output_manager_v1 *output_mgr;
+static struct wlr_presentation *presentation;
 static struct wlr_virtual_keyboard_manager_v1 *virtual_keyboard_mgr;
 
 static struct wlr_cursor *cursor;
 static struct wlr_xcursor_manager *cursor_mgr;
-#ifdef XWAYLAND
-static struct wlr_xcursor *xcursor;
-static struct wlr_xcursor_manager *xcursor_mgr;
-#endif
 
 static struct wlr_seat *seat;
 static struct wl_list keyboards;
@@ -371,7 +368,6 @@ static struct wlr_xwayland *xwayland;
 static Atom netatom[NetLast];
 #endif
 
-// patches
 /* configuration, allows nested code to access above variables */
 #include "config.h"
 
@@ -793,7 +789,7 @@ createkeyboard(struct wlr_input_device *device)
 
 	/* Prepare an XKB keymap and assign it to the keyboard. */
 	context = xkb_context_new(XKB_CONTEXT_NO_FLAGS);
-	keymap = xkb_map_new_from_names(context, &xkb_rules,
+	keymap = xkb_keymap_new_from_names(context, &xkb_rules,
 		XKB_KEYMAP_COMPILE_NO_FLAGS);
 
 	wlr_keyboard_set_keymap(device->keyboard, keymap);
@@ -960,7 +956,6 @@ createpointer(struct wlr_input_device *device)
 	 * opportunity to do libinput configuration on the device to set
 	 * acceleration, etc. */
 	wlr_cursor_attach_input_device(cursor, device);
-	wlr_cursor_set_image(cursor, NULL, 0, 0, 0, 0, 0, 0);
 }
 
 void
@@ -1086,7 +1081,6 @@ focusclient(Client *c, int lift)
 		selmon = c->mon;
 		c->isurgent = 0;
 	}
-	printstatus();
 
 	/* Deactivate old client if focus is changing */
 	if (old && (!c || client_surface(c) != old)) {
@@ -1108,6 +1102,8 @@ focusclient(Client *c, int lift)
 			client_activate_surface(old, 0);
 		}
 	}
+
+	printstatus();
 
 	if (!c) {
 		/* With no client, all we have left is to clear focus */
@@ -1447,11 +1443,11 @@ moveresize(const Arg *arg)
 	case CurResize:
 		/* Doesn't work for X11 output - the next absolute motion event
 		 * returns the cursor to where it started */
-// 		wlr_cursor_warp_closest(cursor, NULL,
-// 				grabc->geom.x + grabc->geom.width,
-// 				grabc->geom.y + grabc->geom.height);
-// 		wlr_xcursor_manager_set_cursor_image(cursor_mgr,
-// 				"bottom_right_corner", cursor);
+		wlr_cursor_warp_closest(cursor, NULL,
+				grabc->geom.x + grabc->geom.width,
+				grabc->geom.y + grabc->geom.height);
+		wlr_xcursor_manager_set_cursor_image(cursor_mgr,
+				"bottom_right_corner", cursor);
 		break;
 	}
 }
@@ -1656,6 +1652,8 @@ render(struct wlr_surface *surface, int sx, int sy, void *data)
 	/* This lets the client know that we've displayed that frame and it can
 	 * prepare another one now if it likes. */
 	wlr_surface_send_frame_done(surface, rdata->when);
+
+	wlr_presentation_surface_sampled_on_output(presentation, surface, output);
 }
 
 void
@@ -1786,7 +1784,6 @@ rendermon(struct wl_listener *listener, void *data)
 	} while (!wlr_output_commit(m->wlr_output));
 }
 
-// resize for window
 void
 resize(Client *c, int x, int y, int w, int h, int interact)
 {
@@ -2077,7 +2074,7 @@ setup(void)
 	 * Xcursor themes to source cursor images from and makes sure that cursor
 	 * images are available at all scale factors on the screen (necessary for
 	 * HiDPI support). Scaled cursors will be loaded with each output. */
-	cursor_mgr = wlr_xcursor_manager_create(NULL, 1);
+	cursor_mgr = wlr_xcursor_manager_create(NULL, 24);
 
 	/*
 	 * wlr_cursor *only* displays an image on screen. It does not move around
@@ -2120,6 +2117,8 @@ setup(void)
 	wl_signal_add(&output_mgr->events.apply, &output_mgr_apply);
 	wl_signal_add(&output_mgr->events.test, &output_mgr_test);
 
+	presentation = wlr_presentation_create(dpy, backend);
+
 #ifdef XWAYLAND
 	/*
 	 * Initialise the XWayland X server.
@@ -2129,18 +2128,6 @@ setup(void)
 	if (xwayland) {
 		wl_signal_add(&xwayland->events.ready, &xwayland_ready);
 		wl_signal_add(&xwayland->events.new_surface, &new_xwayland_surface);
-
-		/*
-		 * Create the XWayland cursor manager at scale 1, setting its default
-		 * pointer to match the rest of dwl.
-		 */
-		xcursor_mgr = wlr_xcursor_manager_create(NULL, 1);
-		wlr_xcursor_manager_load(xcursor_mgr, 1);
-		if ((xcursor = wlr_xcursor_manager_get_xcursor(xcursor_mgr, "left_ptr", 1)))
-			wlr_xwayland_set_cursor(xwayland,
-					xcursor->images[0]->buffer, xcursor->images[0]->width * 4,
-					xcursor->images[0]->width, xcursor->images[0]->height,
-					xcursor->images[0]->hotspot_x, xcursor->images[0]->hotspot_y);
 
 		setenv("DISPLAY", xwayland->display_name, 1);
 	} else {

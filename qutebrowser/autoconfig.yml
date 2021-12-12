@@ -14,6 +14,7 @@ settings:
         gI: hint inputs --first ;; mode-enter insert ;; later 50 edit-text
   content.notifications.enabled:
     https://sernext.duckdns.org: true
+    https://studiocustomers.com: false
     https://www.conrad.be: false
     https://www.reddit.com: false
     https://www.youtube.com: false

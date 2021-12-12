@@ -6,7 +6,7 @@ export VISUAL=/usr/bin/nvim
 export PATH="$PATH:$HOME/bin:$HOME/.local/bin"
 export npm_config_prefix="$HOME/.local"
 
-var=1
+var=0
 
 if [ $var -eq 0 ]; then
     export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
@@ -19,8 +19,8 @@ if [ $var -eq 0 ]; then
 
     export LIBSEAT_BACKEND=logind
 
-    dwl
-    #exec dbus-run-session sway -s ./startup.sh $@
+    #dwl
+    exec dbus-run-session sway
     
 else 
     if [ -z $DISPLAY ] && [ $XDG_VTNR -eq 1 ]; then

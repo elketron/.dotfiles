@@ -5,6 +5,5 @@ configuration {
     hide-scrollbar: true;
     diable-history: false;
     columns: 2;
-    theme: "~/.config/rofi/Pop-Dark.rasi";
-
 }
+ @theme "~/.config/rofi/Pop-Dark.rasi"

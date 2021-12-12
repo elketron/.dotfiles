@@ -54,7 +54,7 @@ rofi_launch = "rofi -show drun"
 rofi_win = "rofi -show window -modi window"
 rofi_powermenu = "sh ~/.config/rofi/power.sh"
 file_browser = terminal .. " -e ranger"
-screenshot = "scrot -s -o file.png && xclip -selection clipboard -t image/png -i file.png"
+screenshot = "flameshot gui"
 
 
 -- Default modkey.
@@ -401,10 +401,10 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- Autorun programs
 autorun = true
 autorunApps = {
-    "xrandr --output DP-2 --mode 2560x1440 --pos 2560x0 --rotate left --output HDMI-1 --mode 2560x1080 --pos 0x740 --rotate normal",
+    "xrandr --output DP-1 --off --output DP-2 --mode 2560x1440 --pos 3440x0 --rotate right --output DP-3 --primary --mode 3    440x1440 --pos 0x560 --rotate normal --output HDMI-1 --off",
     "picom",
     "nitrogen --restore",
-    "Blueman-manager",
+ --   "Blueman-manager",
     "anki"
 }
 
