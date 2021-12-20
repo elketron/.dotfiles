@@ -19,7 +19,7 @@ set $term kitty
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu wofi --show run | xargs swaymsg exec --
+set $menu wofi --show drun | xargs swaymsg exec --
 
 ### Output configuration
 #
@@ -50,8 +50,8 @@ workspace 9 output DP-2
 workspace 10 output DP-2
 
 # window config
-default_border pixel 2
-default_floating_border pixel 5
+default_border none
+default_floating_border pixel 2
 
 ### Idle configuration
 #
@@ -238,4 +238,5 @@ bindsym $mod+r mode "resize"
 
 include /etc/sway/config.d/*
 
+exec_always import-gsettings
 exec ~/startup

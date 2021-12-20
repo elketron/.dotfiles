@@ -144,5 +144,10 @@ ydlp (){
    yt-dlp $1 -o 'Videos/%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s'
 }
 
+# zip folder
+zf (){
+   zip -r $1 $1
+}
+
 # exports
 export MSBuildSDKsPath=/usr/share/dotnet/sdk/$(dotnet --version)/Sdks
