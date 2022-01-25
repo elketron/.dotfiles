@@ -36,6 +36,7 @@ lsp.arduino_language_server.setup({
   },
   capabilities = capabilities
 })
+lsp.sqls.setup{}
 -- lsp.efm.setup{
 --   init_options = {documentFormatting = true},
 --   settings = {
@@ -48,7 +49,10 @@ lsp.arduino_language_server.setup({
 --   filetypes = { 'python', 'lua'}
 --}
 
---lsp.vuels.setup{}
+lsp.vuels.setup{
+  on_attach = on_attach,
+  capabilities = capabilities,
+}
 --lsp.nlua.setup{}
 -- require("nlua.lsp.nvim").setup(require("lspconfig"), {
 --   on_attach = on_attach,
