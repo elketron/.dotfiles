@@ -57,7 +57,7 @@ def timer():
         times += 1
     print("done")
     t1.join()
-    subprocess.run("pkill mpv", shell=False, check=False)
+    subprocess.run(["pkill", "mpv"], shell=False, check=False)
     return hour * 3600 + mins * 60 + secs
 
 def countdown():

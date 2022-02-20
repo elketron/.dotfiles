@@ -1,15 +1,9 @@
 $HOME/.dotfiles/rofi $HOME/.config
 $HOME/.dotfiles/nvim $HOME/.config
-$HOME/.dotfiles/awesome $HOME/.config
 $HOME/.dotfiles/kitty $HOME/.config
 $HOME/.dotfiles/sway $HOME/.config
 $HOME/.dotfiles/dunst $HOME/.config
 $HOME/.dotfiles/qutebrowser $HOME/.config
 $HOME/.dotfiles/zathura $HOME/.config
-$HOME/.dotfiles/.zprofile $HOME
-$HOME/.dotfiles/.xinitrc $HOME
-$HOME/.dotfiles/.xserverrc $HOME
-$HOME/.dotfiles/.Xresources $HOME
-$HOME/.dotfiles/.zshrc $HOME
 $HOME/.dotfiles/bin $HOME
 $HOME/.dotfiles/ranger $HOME/.config/ranger
