@@ -28,6 +28,7 @@ lsp.html.setup{
 lsp.tsserver.setup{}
 lsp.angularls.setup{}
 lsp.cssls.setup { capabilities = capabilities }
+--lsp.csharp_ls.setup{}
 lsp.arduino_language_server.setup({
   cmd = {
   "arduino-language-server", 
@@ -53,6 +54,7 @@ lsp.vuels.setup{
   on_attach = on_attach,
   capabilities = capabilities,
 }
+lsp.bashls.setup{}
 --lsp.nlua.setup{}
 -- require("nlua.lsp.nvim").setup(require("lspconfig"), {
 --   on_attach = on_attach,

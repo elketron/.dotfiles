@@ -9,6 +9,7 @@ return require('packer').startup(function()
 	use 'MunifTanjim/nui.nvim'
 	use 'nvim-telescope/telescope.nvim'
 	use 'jbyuki/nabla.nvim'
+	use 'habamax/vim-godot'
 	use {
 		'nvim-treesitter/nvim-treesitter',
 		run = 'TSUpdate'

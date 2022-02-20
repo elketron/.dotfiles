@@ -33,3 +33,5 @@ vim.g.maplocalleader = ","
 vim.api.nvim_set_option('directory', '~/.vim/swap')
 vim.api.nvim_set_option('undodir', '~/.vim/undo')
 
+vim.g.godot_executable = "/usr/bin/godot-mono"
+
